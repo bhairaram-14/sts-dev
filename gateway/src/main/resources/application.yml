@@ -1,0 +1,42 @@
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost    
+    
+    
+    
+    
+    
+    
+    
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id:  order-service
+         uri: lb://ORDER-SERVICE
+         prdeicates:
+           - Path=/order/**
+       - id:  payment-service
+         uri: lb://PAYMENT-SERVICE
+         predicates:
+           - Path=/payment/**
+       - id:  product-service
+         uri: lb://PRODUCT-SERVICE   
+         predicates:
+           - Path=/product/**  
+       - id:  gateway     
+         uri: lb://GATEWAY
+         predicates:
+           - Path=/gate/**  
+                       
+       - id:  saga-layer
+         uri: lb://SAGA-LAYER   
+         predicates:
+           - Path=/saga/**
+     
